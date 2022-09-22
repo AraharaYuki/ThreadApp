@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class='container'>
+        <div class='title'>
+            <h1 class="border-bottom mt-5">{{ object.title }}</h1>
+            <p class="text-right">{{ object.created_at | date:"o年n月j日H:i"}}</p>
+        </div>
+        <div class='comment'>
+            {% for comment in object.comment_set.all %}
+                <h2>{{ comment.content }}</h2>
+                <p>{{ comment.created_at }}</p>
+            {% endfor %}
+        </div>
+        <form action="{% url 'ccreate' object.id %}" method='POST'>
+            {% csrf_token %}
+            <div class='button text-right mt-2'>
+                <input class="form-control form-control-lg" type="text" placeholder="なんか書いてね" name="content">
+                <input name="thread_id" value="{{ object.id }}" readonly hidden />
+                <button type="button" onclick="history.back()" class="btn btn-secondary">一覧へ戻る</button>
+                <button type="submit" class="btn btn-info">投稿する</button>    
+            </div>
+        </form>
+    </div>
+{% endblock content %}

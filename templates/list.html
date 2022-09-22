@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class='container'>
+    <h1>投稿一覧</h1>
+    <a href="{% url 'tcreate' %}" class="btn btn-dark btn-lg mb-10" tabindex="-1" role="button" aria-disabled="true">投稿する</a>
+    {% for thread in object_list %}
+    <ul class="list-group list-group-flush border-bottom">
+        <li class="list-group-item">
+            <a class="navbar-brand text-dark" href="{% url 'detail' thread.pk %}">{{ thread.title }}：{{thread.created_at | date:"o年n月j日H:i"}}</a>
+        </li>
+    </ul>
+    {% endfor %}
+</div>
+{% endblock content %}
